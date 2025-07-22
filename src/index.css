@@ -53,16 +53,15 @@
     --gradient-prayer: linear-gradient(180deg, hsl(42 15% 97%), hsl(40 20% 95%));
     --gradient-spiritual: linear-gradient(45deg, hsl(25 45% 35%), hsl(35 40% 45%));
     --gradient-golden: linear-gradient(135deg, hsl(45 35% 75%), hsl(50 40% 80%));
-    --gradient-login-bg: linear-gradient(135deg, hsl(25 45% 25%), hsl(35 35% 45%), hsl(40 40% 50%));
-    --gradient-login-button: linear-gradient(135deg, hsl(25 55% 45%), hsl(35 60% 55%), hsl(30 50% 40%));
+    --gradient-login-bg: linear-gradient(135deg, hsl(42 20% 96%), hsl(45 25% 94%), hsl(50 30% 92%));
+    --gradient-login-button: linear-gradient(135deg, hsl(25 45% 45%), hsl(35 50% 55%), hsl(45 40% 50%));
     
     /* Shadows with warm undertones */
     --shadow-soft: 0 4px 20px -2px hsl(25 25% 75% / 0.15);
     --shadow-prayer: 0 8px 25px -5px hsl(25 35% 65% / 0.2);
     --shadow-glow: 0 0 30px hsl(45 45% 70% / 0.3);
-    --shadow-login-card: 0 20px 40px -8px hsl(25 50% 15% / 0.4);
-    --shadow-input-focus: 0 0 0 3px hsl(35 60% 70% / 0.3);
-    --shadow-button-glow: 0 8px 25px hsl(30 55% 50% / 0.4);
+    --shadow-login-card: 0 8px 32px -8px hsl(25 30% 70% / 0.2);
+    --shadow-input-focus: 0 0 0 3px hsl(25 45% 45% / 0.1);
     
     /* Animation timings */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -142,46 +141,33 @@
   }
   
   .login-card {
-    @apply backdrop-blur-xl rounded-3xl p-10;
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    @apply bg-white/80 backdrop-blur-sm border border-white/20 rounded-3xl p-8;
     box-shadow: var(--shadow-login-card);
-    max-width: 420px;
+    max-width: 400px;
     width: 100%;
   }
   
   .login-input {
-    @apply w-full h-14 px-5 border border-white/20 rounded-full backdrop-blur-sm;
-    @apply placeholder:text-white/60 text-white;
+    @apply w-full h-12 px-4 border border-border/50 rounded-full bg-white/50 backdrop-blur-sm;
+    @apply placeholder:text-muted-foreground/60 text-foreground;
     @apply transition-all duration-300 outline-none;
-    @apply hover:border-white/30 focus:border-white/50;
-    background: rgba(255, 248, 240, 0.15);
-    box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.1);
+    @apply hover:border-border focus:border-primary focus:bg-white/70;
+    box-shadow: 0 2px 8px -2px hsl(25 20% 80% / 0.1);
   }
   
   .login-input:focus {
-    box-shadow: var(--shadow-input-focus), 0 4px 12px -2px rgba(0, 0, 0, 0.1);
-    background: rgba(255, 248, 240, 0.25);
+    box-shadow: var(--shadow-input-focus), 0 2px 8px -2px hsl(25 20% 80% / 0.1);
   }
   
   .login-button {
-    @apply w-full h-14 rounded-full font-semibold text-white border-0;
+    @apply w-full h-12 rounded-full font-medium text-white border-0;
     @apply transition-all duration-300 hover:scale-[1.02] active:scale-[0.98];
-    @apply hover:shadow-[var(--shadow-button-glow)];
     background: var(--gradient-login-button);
-    box-shadow: 0 6px 20px -4px hsl(25 45% 30% / 0.4);
-    letter-spacing: 0.5px;
+    box-shadow: 0 4px 16px -4px hsl(25 45% 45% / 0.3);
   }
   
   .login-button:hover {
-    background: linear-gradient(135deg, hsl(25 60% 50%), hsl(35 65% 60%), hsl(30 55% 45%));
-    transform: scale(1.02) translateY(-1px);
-  }
-  
-  /* Arabic text glow effect */
-  .arabic-glow {
-    text-shadow: 0 0 20px rgba(255, 215, 0, 0.6), 0 0 40px rgba(255, 215, 0, 0.4);
-    font-family: 'Amiri', 'Times New Roman', serif;
+    box-shadow: 0 6px 20px -4px hsl(25 45% 45% / 0.4);
   }
 
   /* Spiritual gradient backgrounds */

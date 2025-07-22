@@ -81,30 +81,30 @@ const Login = () => {
 
   return (
     <div className="min-h-screen bg-gradient-login flex items-center justify-center px-6 relative">
-      {/* Mosque silhouette watermark - more prominent */}
-      <div className="absolute inset-0 flex items-center justify-center opacity-15">
+      {/* Subtle mosque silhouette watermark */}
+      <div className="absolute inset-0 flex items-end justify-center opacity-5">
         <img 
           src={mosqueSilhouette} 
           alt="Mosque silhouette" 
-          className="h-96 w-auto object-contain"
+          className="h-64 w-auto object-contain"
         />
       </div>
       
       {/* Islamic pattern background */}
-      <div className="absolute inset-0 islamic-pattern opacity-20"></div>
+      <div className="absolute inset-0 islamic-pattern opacity-10"></div>
       
-      <div className="w-full max-w-md relative z-10 fade-in">
-        {/* Arabic Greeting with Glow */}
-        <div className="text-center mb-12">
-          <p className="text-3xl text-white/90 font-light mb-3 arabic-glow">
+      <div className="w-full max-w-sm relative z-10 fade-in">
+        {/* Greeting */}
+        <div className="text-center mb-8">
+          <p className="text-2xl text-primary/80 font-light mb-2" style={{ fontFamily: 'serif' }}>
             السلام عليكم
           </p>
-          <p className="text-sm text-white/70 font-light tracking-wide">
+          <p className="text-sm text-muted-foreground">
             Assalamu Alaikum - Peace be upon you
           </p>
         </div>
 
-        {/* Login Card with Glass Morphism */}
+        {/* Login Card */}
         <div className="login-card scale-in">
           {/* Crescent Moon Icon */}
           <div className="flex justify-center mb-6">
@@ -117,10 +117,10 @@ const Login = () => {
 
           {/* Welcome Title */}
           <div className="text-center mb-8">
-            <h1 className="text-2xl font-semibold text-white mb-2">
+            <h1 className="text-2xl font-semibold text-primary mb-2">
               {isLogin ? "Welcome Back" : "Join Our Community"}
             </h1>
-            <p className="text-sm text-white/70">
+            <p className="text-sm text-muted-foreground">
               {isLogin 
                 ? "Continue your spiritual journey"
                 : "Begin your prayer tracking journey"
@@ -129,7 +129,7 @@ const Login = () => {
           </div>
 
           {/* Login Form */}
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-4">
             {!isLogin && (
               <input
                 name="name"
@@ -164,18 +164,18 @@ const Login = () => {
 
             <button 
               type="submit" 
-              className="login-button mt-8"
+              className="login-button mt-6"
             >
               {isLogin ? "Log in to Track Salah" : "Create Account"}
             </button>
           </form>
 
           {/* Toggle Login/Register */}
-          <div className="text-center mt-8">
+          <div className="text-center mt-6">
             <button
               type="button"
               onClick={() => setIsLogin(!isLogin)}
-              className="text-sm text-white/60 hover:text-white transition-colors duration-200"
+              className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
             >
               {isLogin 
                 ? "Don't have an account? Sign up" 
@@ -186,28 +186,28 @@ const Login = () => {
         </div>
 
         {/* Back to Welcome */}
-        <div className="text-center mt-8">
+        <div className="text-center mt-6">
           <button
             onClick={() => navigate("/")}
-            className="text-sm text-white/60 hover:text-white transition-colors duration-200"
+            className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
           >
             ← Back to Welcome
           </button>
         </div>
 
         {/* Date Information */}
-        <div className="text-center mt-10 opacity-70">
-          <p className="text-xs text-white/60 mb-1">
+        <div className="text-center mt-8 opacity-60">
+          <p className="text-xs text-muted-foreground mb-1">
             {gregorianDate}
           </p>
-          <p className="text-xs text-white/60">
+          <p className="text-xs text-muted-foreground">
             {hijriDate} AH
           </p>
         </div>
 
         {/* Islamic blessing */}
-        <div className="text-center mt-4 opacity-60">
-          <p className="text-xs text-white/50">
+        <div className="text-center mt-4 opacity-50">
+          <p className="text-xs text-muted-foreground">
             بارك الله فيك - May Allah bless you
           </p>
         </div>
