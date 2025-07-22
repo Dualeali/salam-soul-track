@@ -2,41 +2,66 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Islamic Prayer Tracker Design System - Warm, spiritual, earthly tones */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Base colors - warm sand and earth tones */
+    --background: 42 15% 97%;
+    --foreground: 30 25% 25%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    /* Card surfaces with subtle warmth */
+    --card: 40 20% 98%;
+    --card-foreground: 30 25% 25%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 40 20% 98%;
+    --popover-foreground: 30 25% 25%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary - warm brown with golden undertones */
+    --primary: 25 45% 35%;
+    --primary-foreground: 42 25% 96%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - soft beige */
+    --secondary: 38 25% 88%;
+    --secondary-foreground: 25 45% 35%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted tones */
+    --muted: 40 15% 92%;
+    --muted-foreground: 30 15% 55%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Accent - golden sand */
+    --accent: 45 35% 75%;
+    --accent-foreground: 30 25% 25%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Success for completed prayers - soft green */
+    --success: 120 25% 45%;
+    --success-foreground: 120 15% 95%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Destructive kept subtle */
+    --destructive: 0 45% 55%;
+    --destructive-foreground: 0 15% 95%;
 
-    --radius: 0.5rem;
+    /* Borders and inputs - warm neutrals */
+    --border: 35 15% 85%;
+    --input: 35 15% 85%;
+    --ring: 25 45% 35%;
+
+    --radius: 1rem;
+
+    /* Custom spiritual gradients */
+    --gradient-sunset: linear-gradient(135deg, hsl(25 45% 55%), hsl(45 55% 65%), hsl(35 45% 45%));
+    --gradient-prayer: linear-gradient(180deg, hsl(42 15% 97%), hsl(40 20% 95%));
+    --gradient-spiritual: linear-gradient(45deg, hsl(25 45% 35%), hsl(35 40% 45%));
+    --gradient-golden: linear-gradient(135deg, hsl(45 35% 75%), hsl(50 40% 80%));
+    
+    /* Shadows with warm undertones */
+    --shadow-soft: 0 4px 20px -2px hsl(25 25% 75% / 0.15);
+    --shadow-prayer: 0 8px 25px -5px hsl(25 35% 65% / 0.2);
+    --shadow-glow: 0 0 30px hsl(45 45% 70% / 0.3);
+    
+    /* Animation timings */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
 
@@ -101,5 +126,91 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+@layer components {
+  /* Spiritual gradient backgrounds */
+  .bg-gradient-sunset {
+    background: var(--gradient-sunset);
+  }
+  
+  .bg-gradient-prayer {
+    background: var(--gradient-prayer);
+  }
+  
+  .bg-gradient-spiritual {
+    background: var(--gradient-spiritual);
+  }
+  
+  .bg-gradient-golden {
+    background: var(--gradient-golden);
+  }
+
+  /* Prayer card styles */
+  .prayer-card {
+    @apply bg-card border border-border rounded-2xl p-6 shadow-[var(--shadow-soft)] transition-all duration-300;
+  }
+  
+  .prayer-card:hover {
+    @apply shadow-[var(--shadow-prayer)] transform -translate-y-1;
+  }
+  
+  /* Completed prayer state */
+  .prayer-completed {
+    @apply bg-gradient-to-br from-green-50 to-green-100 border-green-200;
+  }
+
+  /* Spiritual button variants */
+  .btn-spiritual {
+    @apply bg-gradient-spiritual text-primary-foreground px-8 py-4 rounded-xl font-medium;
+    @apply shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-glow)];
+    @apply transition-all duration-300 hover:scale-105;
+  }
+  
+  .btn-golden {
+    @apply bg-gradient-golden text-foreground px-6 py-3 rounded-lg font-medium;
+    @apply shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-prayer)];
+    @apply transition-all duration-300;
+  }
+
+  /* Islamic pattern overlay */
+  .islamic-pattern {
+    background-image: radial-gradient(circle at 1px 1px, hsl(var(--muted)) 1px, transparent 0);
+    background-size: 20px 20px;
+    opacity: 0.3;
+  }
+
+  /* Gentle animations */
+  .fade-in {
+    animation: fadeIn 0.6s ease-out;
+  }
+  
+  .scale-in {
+    animation: scaleIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+}
+
+@layer utilities {
+  /* Custom animations */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  
+  @keyframes prayerComplete {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+  
+  .animate-prayer-complete {
+    animation: prayerComplete 0.5s ease-in-out;
   }
 }
