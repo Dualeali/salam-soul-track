@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import crescentMoon from "@/assets/crescent-moon.png";
+import mosqueSilhouette from "@/assets/mosque-silhouette.png";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -16,6 +14,27 @@ const Login = () => {
     email: "",
     password: ""
   });
+
+  // Get current dates
+  const getCurrentDate = () => {
+    const today = new Date();
+    const gregorianDate = today.toLocaleDateString('en-US', { 
+      weekday: 'long',
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    });
+    
+    // Simple Hijri date approximation (for demo purposes)
+    const hijriYear = 1446; // Current approximate Hijri year
+    const hijriMonths = ['Muharram', 'Safar', 'Rabi al-Awwal', 'Rabi al-Thani', 'Jumada al-Awwal', 'Jumada al-Thani', 'Rajab', 'Shaban', 'Ramadan', 'Shawwal', 'Dhu al-Qadah', 'Dhu al-Hijjah'];
+    const currentHijriMonth = hijriMonths[today.getMonth()];
+    const hijriDate = `${today.getDate()} ${currentHijriMonth} ${hijriYear}`;
+    
+    return { gregorianDate, hijriDate };
+  };
+
+  const { gregorianDate, hijriDate } = getCurrentDate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,116 +80,134 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-prayer flex items-center justify-center px-6 relative">
-      {/* Islamic pattern background */}
-      <div className="absolute inset-0 islamic-pattern opacity-30"></div>
+    <div className="min-h-screen bg-gradient-login flex items-center justify-center px-6 relative">
+      {/* Subtle mosque silhouette watermark */}
+      <div className="absolute inset-0 flex items-end justify-center opacity-5">
+        <img 
+          src={mosqueSilhouette} 
+          alt="Mosque silhouette" 
+          className="h-64 w-auto object-contain"
+        />
+      </div>
       
-      <div className="w-full max-w-md relative z-10">
-        <Card className="prayer-card border-0 shadow-[var(--shadow-prayer)]">
-          <CardHeader className="text-center pb-4">
+      {/* Islamic pattern background */}
+      <div className="absolute inset-0 islamic-pattern opacity-10"></div>
+      
+      <div className="w-full max-w-sm relative z-10 fade-in">
+        {/* Greeting */}
+        <div className="text-center mb-8">
+          <p className="text-2xl text-primary/80 font-light mb-2" style={{ fontFamily: 'serif' }}>
+            السلام عليكم
+          </p>
+          <p className="text-sm text-muted-foreground">
+            Assalamu Alaikum - Peace be upon you
+          </p>
+        </div>
+
+        {/* Login Card */}
+        <div className="login-card scale-in">
+          {/* Crescent Moon Icon */}
+          <div className="flex justify-center mb-6">
             <img 
               src={crescentMoon} 
               alt="Crescent Moon" 
-              className="w-12 h-12 mx-auto mb-4"
+              className="w-12 h-12"
             />
-            <CardTitle className="text-2xl bg-gradient-spiritual bg-clip-text text-transparent">
-              {isLogin ? "Welcome Back" : "Join the Journey"}
-            </CardTitle>
-            <CardDescription className="text-muted-foreground">
+          </div>
+
+          {/* Welcome Title */}
+          <div className="text-center mb-8">
+            <h1 className="text-2xl font-semibold text-primary mb-2">
+              {isLogin ? "Welcome Back" : "Join Our Community"}
+            </h1>
+            <p className="text-sm text-muted-foreground">
               {isLogin 
-                ? "Continue your spiritual path with mindful prayer tracking"
-                : "Let's begin your spiritual journey together"
+                ? "Continue your spiritual journey"
+                : "Begin your prayer tracking journey"
               }
-            </CardDescription>
-          </CardHeader>
+            </p>
+          </div>
 
-          <form onSubmit={handleSubmit}>
-            <CardContent className="space-y-6">
-              {!isLogin && (
-                <div className="space-y-2">
-                  <Label htmlFor="name" className="text-sm font-medium">
-                    Full Name
-                  </Label>
-                  <Input
-                    id="name"
-                    name="name"
-                    type="text"
-                    placeholder="Enter your name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    className="h-12 border-border focus:ring-primary"
-                  />
-                </div>
-              )}
+          {/* Login Form */}
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {!isLogin && (
+              <input
+                name="name"
+                type="text"
+                placeholder="Full Name"
+                value={formData.name}
+                onChange={handleInputChange}
+                className="login-input"
+                required={!isLogin}
+              />
+            )}
 
-              <div className="space-y-2">
-                <Label htmlFor="email" className="text-sm font-medium">
-                  Email Address
-                </Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="Enter your email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  className="h-12 border-border focus:ring-primary"
-                />
-              </div>
+            <input
+              name="email"
+              type="email"
+              placeholder="Email address"
+              value={formData.email}
+              onChange={handleInputChange}
+              className="login-input"
+              required
+            />
 
-              <div className="space-y-2">
-                <Label htmlFor="password" className="text-sm font-medium">
-                  Password
-                </Label>
-                <Input
-                  id="password"
-                  name="password"
-                  type="password"
-                  placeholder="Enter your password"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  className="h-12 border-border focus:ring-primary"
-                />
-              </div>
-            </CardContent>
+            <input
+              name="password"
+              type="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleInputChange}
+              className="login-input"
+              required
+            />
 
-            <CardFooter className="flex flex-col space-y-4">
-              <Button 
-                type="submit" 
-                className="w-full btn-spiritual text-lg h-12"
-              >
-                {isLogin ? "Log in to Track Salah" : "Begin Spiritual Journey"}
-              </Button>
-
-              <div className="text-center">
-                <button
-                  type="button"
-                  onClick={() => setIsLogin(!isLogin)}
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  {isLogin 
-                    ? "Don't have an account? Register here" 
-                    : "Already have an account? Sign in"
-                  }
-                </button>
-              </div>
-
-              <div className="text-center">
-                <button
-                  type="button"
-                  onClick={() => navigate("/")}
-                  className="text-sm text-accent-foreground hover:text-foreground transition-colors"
-                >
-                  ← Back to Welcome
-                </button>
-              </div>
-            </CardFooter>
+            <button 
+              type="submit" 
+              className="login-button mt-6"
+            >
+              {isLogin ? "Log in to Track Salah" : "Create Account"}
+            </button>
           </form>
-        </Card>
+
+          {/* Toggle Login/Register */}
+          <div className="text-center mt-6">
+            <button
+              type="button"
+              onClick={() => setIsLogin(!isLogin)}
+              className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
+            >
+              {isLogin 
+                ? "Don't have an account? Sign up" 
+                : "Already have an account? Log in"
+              }
+            </button>
+          </div>
+        </div>
+
+        {/* Back to Welcome */}
+        <div className="text-center mt-6">
+          <button
+            onClick={() => navigate("/")}
+            className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
+          >
+            ← Back to Welcome
+          </button>
+        </div>
+
+        {/* Date Information */}
+        <div className="text-center mt-8 opacity-60">
+          <p className="text-xs text-muted-foreground mb-1">
+            {gregorianDate}
+          </p>
+          <p className="text-xs text-muted-foreground">
+            {hijriDate} AH
+          </p>
+        </div>
 
         {/* Islamic blessing */}
-        <div className="text-center mt-6 opacity-70">
-          <p className="text-sm text-muted-foreground">
+        <div className="text-center mt-4 opacity-50">
+          <p className="text-xs text-muted-foreground">
             بارك الله فيك - May Allah bless you
           </p>
         </div>

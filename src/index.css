@@ -53,11 +53,15 @@
     --gradient-prayer: linear-gradient(180deg, hsl(42 15% 97%), hsl(40 20% 95%));
     --gradient-spiritual: linear-gradient(45deg, hsl(25 45% 35%), hsl(35 40% 45%));
     --gradient-golden: linear-gradient(135deg, hsl(45 35% 75%), hsl(50 40% 80%));
+    --gradient-login-bg: linear-gradient(135deg, hsl(42 20% 96%), hsl(45 25% 94%), hsl(50 30% 92%));
+    --gradient-login-button: linear-gradient(135deg, hsl(25 45% 45%), hsl(35 50% 55%), hsl(45 40% 50%));
     
     /* Shadows with warm undertones */
     --shadow-soft: 0 4px 20px -2px hsl(25 25% 75% / 0.15);
     --shadow-prayer: 0 8px 25px -5px hsl(25 35% 65% / 0.2);
     --shadow-glow: 0 0 30px hsl(45 45% 70% / 0.3);
+    --shadow-login-card: 0 8px 32px -8px hsl(25 30% 70% / 0.2);
+    --shadow-input-focus: 0 0 0 3px hsl(25 45% 45% / 0.1);
     
     /* Animation timings */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -131,6 +135,41 @@
 }
 
 @layer components {
+  /* Login page specific styles */
+  .bg-gradient-login {
+    background: var(--gradient-login-bg);
+  }
+  
+  .login-card {
+    @apply bg-white/80 backdrop-blur-sm border border-white/20 rounded-3xl p-8;
+    box-shadow: var(--shadow-login-card);
+    max-width: 400px;
+    width: 100%;
+  }
+  
+  .login-input {
+    @apply w-full h-12 px-4 border border-border/50 rounded-full bg-white/50 backdrop-blur-sm;
+    @apply placeholder:text-muted-foreground/60 text-foreground;
+    @apply transition-all duration-300 outline-none;
+    @apply hover:border-border focus:border-primary focus:bg-white/70;
+    box-shadow: 0 2px 8px -2px hsl(25 20% 80% / 0.1);
+  }
+  
+  .login-input:focus {
+    box-shadow: var(--shadow-input-focus), 0 2px 8px -2px hsl(25 20% 80% / 0.1);
+  }
+  
+  .login-button {
+    @apply w-full h-12 rounded-full font-medium text-white border-0;
+    @apply transition-all duration-300 hover:scale-[1.02] active:scale-[0.98];
+    background: var(--gradient-login-button);
+    box-shadow: 0 4px 16px -4px hsl(25 45% 45% / 0.3);
+  }
+  
+  .login-button:hover {
+    box-shadow: 0 6px 20px -4px hsl(25 45% 45% / 0.4);
+  }
+
   /* Spiritual gradient backgrounds */
   .bg-gradient-sunset {
     background: var(--gradient-sunset);
