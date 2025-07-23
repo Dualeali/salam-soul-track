@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import { Sun, Moon, Clock, LogOut, ArrowLeft } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 import crescentMoon from "@/assets/crescent-moon.png";
 
 interface Prayer {
@@ -17,45 +18,145 @@ interface Prayer {
   icon: React.ReactNode;
 }
 
+interface PrayerTracking {
+  id?: string;
+  user_id: string;
+  date: string;
+  fajr: boolean;
+  dhuhr: boolean;
+  asr: boolean;
+  maghrib: boolean;
+  isha: boolean;
+}
+
 const Dashboard = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { user, signOut, loading } = useAuth();
+
+  const [prayers, setPrayers] = useState<Prayer[]>([
+    { id: "fajr", name: "Fajr", arabicName: "الفجر", time: "5:30 AM", completed: false, icon: <Sun className="w-5 h-5" /> },
+    { id: "dhuhr", name: "Dhuhr", arabicName: "الظهر", time: "12:15 PM", completed: false, icon: <Sun className="w-5 h-5" /> },
+    { id: "asr", name: "Asr", arabicName: "العصر", time: "3:45 PM", completed: false, icon: <Sun className="w-5 h-5" /> },
+    { id: "maghrib", name: "Maghrib", arabicName: "المغرب", time: "6:20 PM", completed: false, icon: <Moon className="w-5 h-5" /> },
+    { id: "isha", name: "Isha", arabicName: "العشاء", time: "8:00 PM", completed: false, icon: <Moon className="w-5 h-5" /> },
+  ]);
+  const [prayerTracking, setPrayerTracking] = useState<PrayerTracking | null>(null);
+  const [isUpdating, setIsUpdating] = useState<string | null>(null);
 
   useEffect(() => {
     if (!loading && !user) {
       navigate("/login");
     }
   }, [user, loading, navigate]);
-  const [prayers, setPrayers] = useState<Prayer[]>([
-    { id: "fajr", name: "Fajr", arabicName: "الفجر", time: "5:30 AM", completed: false, icon: <Sun className="w-5 h-5" /> },
-    { id: "dhuhr", name: "Dhuhr", arabicName: "الظهر", time: "12:15 PM", completed: true, icon: <Sun className="w-5 h-5" /> },
-    { id: "asr", name: "Asr", arabicName: "العصر", time: "3:45 PM", completed: true, icon: <Sun className="w-5 h-5" /> },
-    { id: "maghrib", name: "Maghrib", arabicName: "المغرب", time: "6:20 PM", completed: false, icon: <Moon className="w-5 h-5" /> },
-    { id: "isha", name: "Isha", arabicName: "العشاء", time: "8:00 PM", completed: true, icon: <Moon className="w-5 h-5" /> },
-  ]);
+
+  useEffect(() => {
+    if (user) {
+      fetchTodaysPrayers();
+    }
+  }, [user]);
+
+  const fetchTodaysPrayers = async () => {
+    if (!user) return;
+
+    const today = new Date().toISOString().split('T')[0];
+    
+    const { data, error } = await supabase
+      .from('prayer_tracking')
+      .select('*')
+      .eq('user_id', user.id)
+      .eq('date', today)
+      .single();
+
+    if (error && error.code !== 'PGRST116') {
+      console.error('Error fetching prayers:', error);
+      return;
+    }
+
+    if (data) {
+      setPrayerTracking(data);
+      // Update prayers state with completion status from database
+      setPrayers(prev => prev.map(prayer => ({
+        ...prayer,
+        completed: data[prayer.id as keyof PrayerTracking] as boolean
+      })));
+    }
+  };
+
+  const updatePrayerInDatabase = async (prayerId: string, completed: boolean) => {
+    if (!user) return;
+
+    setIsUpdating(prayerId);
+    const today = new Date().toISOString().split('T')[0];
+
+    try {
+      const updateData = {
+        user_id: user.id,
+        date: today,
+        [prayerId]: completed,
+      };
+
+      const { data, error } = await supabase
+        .from('prayer_tracking')
+        .upsert(updateData, { 
+          onConflict: 'user_id,date',
+          ignoreDuplicates: false 
+        })
+        .select()
+        .single();
+
+      if (error) {
+        throw error;
+      }
+
+      setPrayerTracking(data);
+      
+      // Show success toast with "✅ Saved" confirmation
+      toast({
+        title: completed ? "Prayer completed! ✅ Saved" : "Prayer unmarked ✅ Saved",
+        description: completed 
+          ? `Alhamdulillahi, ${prayers.find(p => p.id === prayerId)?.name} prayer has been marked complete.`
+          : `${prayers.find(p => p.id === prayerId)?.name} prayer has been unmarked.`,
+        variant: completed ? "default" : "destructive",
+      });
+
+    } catch (error) {
+      console.error('Error updating prayer:', error);
+      toast({
+        title: "Error saving prayer",
+        description: "Please try again.",
+        variant: "destructive",
+      });
+      
+      // Revert the local state on error
+      setPrayers(prev => prev.map(prayer => 
+        prayer.id === prayerId 
+          ? { ...prayer, completed: !completed }
+          : prayer
+      ));
+    } finally {
+      setIsUpdating(null);
+    }
+  };
 
   const completedCount = prayers.filter(prayer => prayer.completed).length;
   const completionPercentage = (completedCount / prayers.length) * 100;
 
-  const togglePrayer = (prayerId: string) => {
-    setPrayers(prev => prev.map(prayer => {
-      if (prayer.id === prayerId) {
-        const newCompleted = !prayer.completed;
-        
-        // Show toast for completion/incompletion
-        toast({
-          title: newCompleted ? "Prayer completed!" : "Prayer unmarked",
-          description: newCompleted 
-            ? `Alhamdulillahi, ${prayer.name} prayer has been marked complete.`
-            : `${prayer.name} prayer has been unmarked.`,
-          variant: newCompleted ? "default" : "destructive",
-        });
-        
-        return { ...prayer, completed: newCompleted };
-      }
-      return prayer;
-    }));
+  const togglePrayer = async (prayerId: string) => {
+    // Update local state immediately for responsive UI
+    const currentPrayer = prayers.find(p => p.id === prayerId);
+    if (!currentPrayer) return;
+    
+    const newCompleted = !currentPrayer.completed;
+    
+    setPrayers(prev => prev.map(prayer => 
+      prayer.id === prayerId 
+        ? { ...prayer, completed: newCompleted }
+        : prayer
+    ));
+
+    // Update in database
+    await updatePrayerInDatabase(prayerId, newCompleted);
   };
 
   const getCurrentDate = () => {
@@ -234,12 +335,19 @@ const Dashboard = () => {
                   </div>
                 </div>
 
-                <div className={`text-sm px-3 py-1 rounded-full ${
+                <div className={`text-sm px-3 py-1 rounded-full flex items-center gap-2 ${
                   prayer.completed 
                     ? 'bg-success/20 text-success' 
                     : 'bg-muted text-muted-foreground'
                 }`}>
-                  {prayer.completed ? 'Completed' : 'Pending'}
+                  {isUpdating === prayer.id ? (
+                    <>
+                      <div className="w-3 h-3 border border-current border-t-transparent rounded-full animate-spin"></div>
+                      Saving...
+                    </>
+                  ) : (
+                    prayer.completed ? 'Completed ✅' : 'Pending'
+                  )}
                 </div>
               </CardContent>
             </Card>
