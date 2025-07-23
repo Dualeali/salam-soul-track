@@ -14,7 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      prayer_tracking: {
+        Row: {
+          asr: boolean
+          created_at: string
+          date: string
+          dhuhr: boolean
+          fajr: boolean
+          id: string
+          isha: boolean
+          maghrib: boolean
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          asr?: boolean
+          created_at?: string
+          date?: string
+          dhuhr?: boolean
+          fajr?: boolean
+          id?: string
+          isha?: boolean
+          maghrib?: boolean
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          asr?: boolean
+          created_at?: string
+          date?: string
+          dhuhr?: boolean
+          fajr?: boolean
+          id?: string
+          isha?: boolean
+          maghrib?: boolean
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
