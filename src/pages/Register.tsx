@@ -5,17 +5,16 @@ import { useAuth } from "@/hooks/useAuth";
 import crescentMoon from "@/assets/crescent-moon.png";
 import mosqueSilhouette from "@/assets/mosque-silhouette.png";
 
-const Login = () => {
+const Register = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { signIn } = useAuth();
+  const { signUp } = useAuth();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: ""
   });
 
-  // Get current dates
   const getCurrentDate = () => {
     const today = new Date();
     const gregorianDate = today.toLocaleDateString('en-US', { 
@@ -25,8 +24,7 @@ const Login = () => {
       day: 'numeric' 
     });
     
-    // Simple Hijri date approximation (for demo purposes)
-    const hijriYear = 1446; // Current approximate Hijri year
+    const hijriYear = 1446;
     const hijriMonths = ['Muharram', 'Safar', 'Rabi al-Awwal', 'Rabi al-Thani', 'Jumada al-Awwal', 'Jumada al-Thani', 'Rajab', 'Shaban', 'Ramadan', 'Shawwal', 'Dhu al-Qadah', 'Dhu al-Hijjah'];
     const currentHijriMonth = hijriMonths[today.getMonth()];
     const hijriDate = `${today.getDate()} ${currentHijriMonth} ${hijriYear}`;
@@ -48,27 +46,36 @@ const Login = () => {
       return;
     }
 
+    if (formData.password.length < 6) {
+      toast({
+        title: "Password too short",
+        description: "Password must be at least 6 characters long.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setLoading(true);
     
-    const { error } = await signIn(formData.email, formData.password);
+    const { error } = await signUp(formData.email, formData.password);
     
     setLoading(false);
 
     if (error) {
       toast({
-        title: "Login failed",
+        title: "Registration failed",
         description: error.message,
         variant: "destructive",
       });
     } else {
       toast({
-        title: "Welcome back!",
-        description: "You have successfully logged in. May Allah bless your prayers.",
+        title: "✅ Registration successful!",
+        description: "Please login to continue your spiritual journey.",
       });
       
       setTimeout(() => {
-        navigate("/dashboard");
-      }, 1000);
+        navigate("/login");
+      }, 1500);
     }
   };
 
@@ -100,11 +107,11 @@ const Login = () => {
             السلام عليكم
           </p>
           <p className="text-sm text-white/70">
-            Assalamu Alaikum - Peace be upon you
+            Assalamu Alaikum - Welcome to our community
           </p>
         </div>
 
-        {/* Login Card */}
+        {/* Register Card */}
         <div className="login-card scale-in">
           {/* Crescent Moon Icon */}
           <div className="flex justify-center mb-6">
@@ -118,14 +125,14 @@ const Login = () => {
           {/* Welcome Title */}
           <div className="text-center mb-8">
             <h1 className="text-2xl font-semibold text-white mb-2">
-              Welcome Back
+              Join Our Community
             </h1>
             <p className="text-sm text-white/70">
-              Continue your spiritual journey
+              Begin your prayer tracking journey
             </p>
           </div>
 
-          {/* Login Form */}
+          {/* Register Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
             <input
               name="email"
@@ -141,11 +148,12 @@ const Login = () => {
             <input
               name="password"
               type="password"
-              placeholder="Password"
+              placeholder="Password (min. 6 characters)"
               value={formData.password}
               onChange={handleInputChange}
               className="login-input"
               required
+              minLength={6}
               disabled={loading}
             />
 
@@ -154,19 +162,19 @@ const Login = () => {
               className="login-button mt-6"
               disabled={loading}
             >
-              {loading ? "Logging in..." : "Log in to Track Salah"}
+              {loading ? "Creating Account..." : "Create Account"}
             </button>
           </form>
 
-          {/* Toggle to Register */}
+          {/* Toggle to Login */}
           <div className="text-center mt-6">
             <button
               type="button"
-              onClick={() => navigate("/register")}
+              onClick={() => navigate("/login")}
               className="text-sm text-white/60 hover:text-white transition-colors duration-200"
               disabled={loading}
             >
-              Don't have an account? Sign up
+              Already have an account? Log in
             </button>
           </div>
         </div>
@@ -203,4 +211,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

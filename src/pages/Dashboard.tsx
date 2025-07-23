@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
-import { Sun, Moon, Clock, User, ArrowLeft } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import { Sun, Moon, Clock, LogOut, ArrowLeft } from "lucide-react";
 import crescentMoon from "@/assets/crescent-moon.png";
 
 interface Prayer {
@@ -19,6 +20,13 @@ interface Prayer {
 const Dashboard = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { user, signOut, loading } = useAuth();
+
+  useEffect(() => {
+    if (!loading && !user) {
+      navigate("/login");
+    }
+  }, [user, loading, navigate]);
   const [prayers, setPrayers] = useState<Prayer[]>([
     { id: "fajr", name: "Fajr", arabicName: "الفجر", time: "5:30 AM", completed: false, icon: <Sun className="w-5 h-5" /> },
     { id: "dhuhr", name: "Dhuhr", arabicName: "الظهر", time: "12:15 PM", completed: true, icon: <Sun className="w-5 h-5" /> },
@@ -60,6 +68,30 @@ const Dashboard = () => {
     });
   };
 
+  const handleLogout = async () => {
+    await signOut();
+    toast({
+      title: "Logged out",
+      description: "You have been successfully logged out. May Allah bless you.",
+    });
+    navigate("/");
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-prayer flex items-center justify-center">
+        <div className="text-center">
+          <img 
+            src={crescentMoon} 
+            alt="Crescent Moon" 
+            className="w-16 h-16 mx-auto mb-4 animate-pulse"
+          />
+          <p className="text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-prayer">
       {/* Islamic pattern background */}
@@ -85,16 +117,16 @@ const Dashboard = () => {
             
             <Button
               variant="ghost"
-              onClick={() => navigate("/login")}
+              onClick={handleLogout}
               className="p-2 hover:bg-muted/50 rounded-full"
             >
-              <User className="w-5 h-5" />
+              <LogOut className="w-5 h-5" />
             </Button>
           </div>
 
           <div className="text-center fade-in">
             <h1 className="text-3xl md:text-4xl font-bold mb-2 bg-gradient-spiritual bg-clip-text text-transparent">
-              Welcome, Mahad!
+              Welcome, {user?.email?.split('@')[0] || 'Brother/Sister'}!
             </h1>
             <p className="text-muted-foreground mb-2 flex items-center justify-center gap-2">
               <Clock className="w-4 h-4" />

@@ -54,7 +54,7 @@ const Welcome = () => {
         {/* Action buttons */}
         <div className="flex flex-col sm:flex-row gap-4 fade-in scale-in">
           <Button 
-            onClick={() => navigate("/login")}
+            onClick={() => navigate("/register")}
             className="btn-spiritual text-lg px-8 py-4"
           >
             Start Your Journey
@@ -62,10 +62,10 @@ const Welcome = () => {
           
           <Button 
             variant="outline" 
-            onClick={() => navigate("/dashboard")}
+            onClick={() => navigate("/login")}
             className="btn-golden text-lg px-8 py-4"
           >
-            Continue as Guest
+            Already have an account?
           </Button>
         </div>
 
