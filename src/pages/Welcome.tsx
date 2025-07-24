@@ -8,6 +8,16 @@ const Welcome = () => {
 
   return (
     <div className="min-h-screen bg-gradient-prayer relative overflow-hidden">
+      {/* Bismillah at top right */}
+      <div className="absolute top-6 right-6 text-right z-20 fade-in">
+        <p className="text-lg text-foreground/80 font-light" style={{ fontFamily: 'serif' }}>
+          بسم الله الرحمن الرحيم
+        </p>
+        <p className="text-xs text-muted-foreground mt-1">
+          In the name of Allah, the Most Gracious, the Most Merciful
+        </p>
+      </div>
+
       {/* Islamic pattern background */}
       <div className="absolute inset-0 islamic-pattern"></div>
       
@@ -69,27 +79,21 @@ const Welcome = () => {
           </Button>
         </div>
 
-        {/* Subtle Islamic greeting */}
-        <div className="absolute bottom-24 left-1/2 transform -translate-x-1/2 text-center opacity-60 pointer-events-none">
-          <p className="text-sm text-muted-foreground">
-            بسم الله الرحمن الرحيم
-          </p>
-          <p className="text-xs text-muted-foreground mt-1">
-            In the name of Allah, the Most Gracious, the Most Merciful
-          </p>
-        </div>
-
         {/* Developer Footer */}
-        <div className="absolute bottom-0 left-0 right-0 py-4">
-          <div className="h-px bg-gradient-to-r from-transparent via-foreground/20 to-transparent mb-4"></div>
-          <div className="text-center px-6">
-            <p className="text-sm text-muted-foreground/80 mb-2 font-light">
-              Developed by <span className="font-medium text-foreground/90">DualeDev</span> — 
-              <span className="font-medium"> DESCRAPPER TECH HIMSELF</span> 💻🕌
-            </p>
-            <p className="text-xs text-muted-foreground/70">
-              WhatsApp: <a href="https://wa.me/797400491" className="hover:text-foreground/90 transition-colors duration-200 underline">0797400491</a>
-            </p>
+        <div className="absolute bottom-0 left-0 right-0 py-6 bg-gradient-to-t from-background/20 to-transparent">
+          <div className="h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent mb-4 mx-8"></div>
+          <div className="text-center px-6 fade-in">
+            <div className="bg-background/10 backdrop-blur-sm rounded-lg py-3 px-6 mx-auto max-w-md">
+              <p className="text-sm font-medium mb-1" style={{ color: '#3C2F20' }}>
+                Developed by <span className="text-primary font-semibold">DualeDev</span>
+              </p>
+              <p className="text-xs mb-2" style={{ color: '#4B3F2F' }}>
+                DESCRAPPER TECH HIMSELF 💻🕌
+              </p>
+              <p className="text-xs" style={{ color: '#4B3F2F' }}>
+                WhatsApp: <a href="https://wa.me/797400491" className="text-primary hover:text-primary/80 transition-colors duration-200 underline font-medium">0797400491</a>
+              </p>
+            </div>
           </div>
         </div>
       </div>
