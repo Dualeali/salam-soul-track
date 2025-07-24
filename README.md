@@ -1,73 +1,75 @@
-# Welcome to your Lovable project
+🕌 Salam SoulTrack – Muslim Prayer Tracker App
+Live Demo 🚀
 
-## Project info
+Salam SoulTrack is a beautifully designed Muslim prayer tracker app that helps users maintain and monitor their daily prayers. It promotes spiritual growth through an intuitive, uplifting interface built to encourage Salah consistency and mindfulness.
 
-**URL**: https://lovable.dev/projects/26b30098-76f8-47c0-998a-5c93ad17e904
+📸 Preview
 
-## How can I edit this code?
 
-There are several ways of editing your application.
+🌟 Features
+✅ Track all five daily prayers
 
-**Use Lovable**
+✅ Beautiful UI with elegant earthy tones and gradients
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/26b30098-76f8-47c0-998a-5c93ad17e904) and start prompting.
+✅ Mobile-friendly and fully responsive
 
-Changes made via Lovable will be committed automatically to this repo.
+✅ Secure login and registration system (JWT + bcrypt)
 
-**Use your preferred IDE**
+✅ MongoDB Atlas integration for persistent user data
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+✅ Interactive and inspirational design to build prayer habits
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+✅ Footer credit and branding
 
-Follow these steps:
+🧱 Tech Stack
+Frontend	Backend	Database	Deployment
+React (via Lovable AI)	Node.js + Express.js	MongoDB Atlas	Vercel (Frontend) + Render (Backend)
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+🛠️ Project Structure
+bash
+Copy
+Edit
+📁 backend/
+│ ├── models/           # Mongoose models for user and prayer data
+│ ├── routes/           # Express routes (auth, prayer tracking)
+│ ├── controllers/      # Business logic for API endpoints
+│ ├── config/           # Environment configs and DB connection
+│ └── server.js         # Entry point for the backend server
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+📁 frontend/
+│ ├── pages/            # Main pages and routing (Next.js style or React Router)
+│ ├── components/       # Reusable UI components (forms, cards, etc.)
+│ └── styles/           # Global and modular styles
+🔐 Authentication
+Secure user registration using bcrypt for password hashing
 
-# Step 3: Install the necessary dependencies.
-npm i
+Authentication and session management with JWT tokens
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+Planned expansion for protected routes and user-specific dashboards
 
-**Edit a file directly in GitHub**
+🌍 Live URLs
+🔗 Frontend App: https://salam-soul-track.vercel.app
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+🔗 Backend API: https://ademasajida-api.onrender.com
 
-**Use GitHub Codespaces**
+👨‍💻 Developer
+Developed by DualeDev — DESCRAPPER TECH HIMSELF 💻🕌
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+A passion project built by a proud Muslim developer to help the Ummah grow closer to their prayers, one Salah at a time.
 
-## What technologies are used for this project?
+🙏 Special Thanks
+Special thanks to:
 
-This project is built with:
+🟢 MongoDB Atlas, 🟣 Render, and ⚪ Vercel for infrastructure support
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+❤️ You, for using the app and prioritizing your prayers
 
-## How can I deploy this project?
+📬 Feedback or Suggestions?
+Have an idea or want to collaborate? Feel free to connect or contribute.
+This is a growing project — and contributions are always welcome!
 
-Simply open [Lovable](https://lovable.dev/projects/26b30098-76f8-47c0-998a-5c93ad17e904) and click on Share -> Publish.
+“Indeed, prayer has been decreed upon the believers a decree of specified times.” – Qur'an 4:103
 
-## Can I connect a custom domain to my Lovable project?
+📄 License
+This project is licensed under the MIT License. See the LICENSE file for more details.
 
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
