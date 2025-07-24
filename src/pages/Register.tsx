@@ -106,7 +106,7 @@ const Register = () => {
           <p className="text-2xl text-primary/80 font-light mb-2 glow-text" style={{ fontFamily: 'serif' }}>
             السلام عليكم
           </p>
-          <p className="text-sm text-white/70">
+          <p className="text-sm" style={{ color: '#4B3F2F' }}>
             Assalamu Alaikum - Welcome to our community
           </p>
         </div>
@@ -124,7 +124,7 @@ const Register = () => {
 
           {/* Welcome Title */}
           <div className="text-center mb-8">
-            <h1 className="text-2xl font-semibold text-white mb-2">
+            <h1 className="text-2xl font-semibold" style={{ color: '#3C2F20' }}>
               Join Our Community
             </h1>
             <p className="text-sm" style={{ color: '#4B3F2F' }}>
@@ -171,7 +171,8 @@ const Register = () => {
             <button
               type="button"
               onClick={() => navigate("/login")}
-              className="text-sm text-white/60 hover:text-white transition-colors duration-200"
+              className="text-sm hover:text-primary transition-colors duration-200"
+              style={{ color: '#4B3F2F' }}
               disabled={loading}
             >
               Already have an account? Log in
@@ -183,7 +184,8 @@ const Register = () => {
         <div className="text-center mt-6">
           <button
             onClick={() => navigate("/")}
-            className="text-sm text-white/60 hover:text-white transition-colors duration-200"
+            className="text-sm hover:text-primary transition-colors duration-200"
+            style={{ color: '#4B3F2F' }}
             disabled={loading}
           >
             ← Back to Welcome
@@ -192,17 +194,17 @@ const Register = () => {
 
         {/* Date Information */}
         <div className="text-center mt-8 opacity-60">
-          <p className="text-xs text-white/50 mb-1">
+          <p className="text-xs mb-1" style={{ color: '#4B3F2F' }}>
             {gregorianDate}
           </p>
-          <p className="text-xs text-white/50">
+          <p className="text-xs" style={{ color: '#4B3F2F' }}>
             {hijriDate} AH
           </p>
         </div>
 
         {/* Islamic blessing */}
         <div className="text-center mt-4 opacity-50">
-          <p className="text-xs text-white/50">
+          <p className="text-xs" style={{ color: '#4B3F2F' }}>
             بارك الله فيك - May Allah bless you
           </p>
         </div>
