@@ -127,7 +127,7 @@ const Register = () => {
             <h1 className="text-2xl font-semibold text-white mb-2">
               Join Our Community
             </h1>
-            <p className="text-sm text-white/70">
+            <p className="text-sm" style={{ color: '#4B3F2F' }}>
               Begin your prayer tracking journey
             </p>
           </div>

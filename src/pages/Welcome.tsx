@@ -69,14 +69,28 @@ const Welcome = () => {
           </Button>
         </div>
 
-        {/* Subtle Islamic greeting at bottom */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center opacity-60">
+        {/* Subtle Islamic greeting */}
+        <div className="absolute bottom-24 left-1/2 transform -translate-x-1/2 text-center opacity-60">
           <p className="text-sm text-muted-foreground">
             بسم الله الرحمن الرحيم
           </p>
           <p className="text-xs text-muted-foreground mt-1">
             In the name of Allah, the Most Gracious, the Most Merciful
           </p>
+        </div>
+
+        {/* Developer Footer */}
+        <div className="absolute bottom-0 left-0 right-0 py-4">
+          <div className="h-px bg-gradient-to-r from-transparent via-foreground/20 to-transparent mb-4"></div>
+          <div className="text-center px-6">
+            <p className="text-sm text-muted-foreground/80 mb-2 font-light">
+              Developed by <span className="font-medium text-foreground/90">DualeDev</span> — 
+              <span className="font-medium"> DESCRAPPER TECH HIMSELF</span> 💻🕌
+            </p>
+            <p className="text-xs text-muted-foreground/70">
+              WhatsApp: <a href="https://wa.me/797400491" className="hover:text-foreground/90 transition-colors duration-200 underline">0797400491</a>
+            </p>
+          </div>
         </div>
       </div>
     </div>
