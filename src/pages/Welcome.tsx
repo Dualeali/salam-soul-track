@@ -8,6 +8,25 @@ const Welcome = () => {
 
   return (
     <div className="min-h-screen bg-gradient-prayer relative overflow-hidden">
+      {/* Developer Info at top left */}
+      <div className="absolute top-6 left-6 z-20 fade-in">
+        <div className="bg-background/20 backdrop-blur-md rounded-xl p-4 border border-primary/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+          <div className="text-left">
+            <p className="text-sm font-semibold mb-1" style={{ color: '#3C2F20' }}>
+              Developed by <span className="text-primary">DualeDev</span>
+            </p>
+            <p className="text-xs mb-2 font-medium" style={{ color: '#4B3F2F' }}>
+              DESCRAPPER TECH HIMSELF 💻🕌
+            </p>
+            <p className="text-xs" style={{ color: '#4B3F2F' }}>
+              <a href="https://wa.me/797400491" className="text-primary hover:text-primary/80 transition-colors duration-200 underline font-medium flex items-center gap-1">
+                📱 0797400491
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* Bismillah at top right */}
       <div className="absolute top-6 right-6 text-right z-20 fade-in">
         <p className="text-lg text-foreground/80 font-light" style={{ fontFamily: 'serif' }}>
@@ -79,23 +98,6 @@ const Welcome = () => {
           </Button>
         </div>
 
-        {/* Developer Footer */}
-        <div className="absolute bottom-0 left-0 right-0 py-6 bg-gradient-to-t from-background/20 to-transparent">
-          <div className="h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent mb-4 mx-8"></div>
-          <div className="text-center px-6 fade-in">
-            <div className="bg-background/10 backdrop-blur-sm rounded-lg py-3 px-6 mx-auto max-w-md">
-              <p className="text-sm font-medium mb-1" style={{ color: '#3C2F20' }}>
-                Developed by <span className="text-primary font-semibold">DualeDev</span>
-              </p>
-              <p className="text-xs mb-2" style={{ color: '#4B3F2F' }}>
-                DESCRAPPER TECH HIMSELF 💻🕌
-              </p>
-              <p className="text-xs" style={{ color: '#4B3F2F' }}>
-                WhatsApp: <a href="https://wa.me/797400491" className="text-primary hover:text-primary/80 transition-colors duration-200 underline font-medium">0797400491</a>
-              </p>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );
